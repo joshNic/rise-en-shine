@@ -1,4 +1,4 @@
-package com.example.riseenshine.data.response
+package com.example.riseenshine.data.db.entity
 
 
 import com.google.gson.annotations.SerializedName

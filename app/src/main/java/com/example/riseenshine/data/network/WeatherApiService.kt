@@ -1,6 +1,6 @@
-package com.example.riseenshine.data
+package com.example.riseenshine.data.network
 
-import com.example.riseenshine.data.response.CurrentWeatherResponse
+import com.example.riseenshine.data.network.response.CurrentWeatherResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -29,7 +29,9 @@ interface WeatherApiService {
                 val url = chain.request()
                     .url()
                     .newBuilder()
-                    .addQueryParameter("access_key", API_KEY)
+                    .addQueryParameter("access_key",
+                        API_KEY
+                    )
                     .build()
                 val request = chain.request()
                     .newBuilder()
