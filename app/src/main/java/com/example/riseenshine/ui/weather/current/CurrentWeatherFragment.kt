@@ -13,16 +13,19 @@ import com.example.riseenshine.R
 import com.example.riseenshine.data.network.ConnectivityInterceptorImpl
 import com.example.riseenshine.data.network.WeatherApiService
 import com.example.riseenshine.data.network.WeatherNetworkDataSourceImpl
+import com.example.riseenshine.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
-class CurrentWeatherFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = CurrentWeatherFragment()
-    }
+class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
+    override val kodein by closestKodein()
+    private val viewModelFactory: CurrentWeatherViewModelFactory by instance()
 
     private lateinit var viewModel: CurrentWeatherViewModel
 
@@ -35,20 +38,31 @@ class CurrentWeatherFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel =
+            ViewModelProvider(this, viewModelFactory).get(CurrentWeatherViewModel::class.java)
 
-        val apiService = WeatherApiService(ConnectivityInterceptorImpl(this.requireContext()))
-        val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
+        buidUI()
+//        val apiService = WeatherApiService(ConnectivityInterceptorImpl(this.requireContext()))
+//        val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
+//
+//        weatherNetworkDataSource.downloadCurrentWeather.observe(viewLifecycleOwner, Observer {
+//            text_view.text = it.toString()
+//        })
+//
+//
+//        GlobalScope.launch(Dispatchers.Main) {
+//            weatherNetworkDataSource.fetchCurrentWeather("London","en")
+//        }
+    }
 
-        weatherNetworkDataSource.downloadCurrentWeather.observe(viewLifecycleOwner, Observer {
+    private fun buidUI() = launch {
+        val currentWeather = viewModel.weather.await()
+        currentWeather.observe(viewLifecycleOwner, Observer {
+
+            if (it == null) return@Observer
+            Log.i("DATA",it.toString())
             text_view.text = it.toString()
         })
-
-
-        GlobalScope.launch(Dispatchers.Main) {
-            weatherNetworkDataSource.fetchCurrentWeather("London","en")
-        }
     }
 
 }

@@ -22,15 +22,16 @@ class ForecastRepositoryImpl(
         }
     }
 
-    private fun persistFetchedCurrentWeather(newCurrentWeather: CurrentWeatherResponse?) {
+    private fun persistFetchedCurrentWeather(newCurrentWeather: CurrentWeatherResponse) {
         GlobalScope.launch(Dispatchers.IO) {
-            currentWeatherDao.upsert(newCurrentWeather!!.currentWeatherEntry)
+            currentWeatherDao.upsert(newCurrentWeather.currentWeatherEntry)
         }
 
     }
 
     override suspend fun getCurrentWeather(metric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
         return withContext(Dispatchers.IO){
+            initWeatherData()
             return@withContext if (metric) currentWeatherDao.getWeatherMetric()
             else currentWeatherDao.getWeatherImperial()
         }
@@ -42,7 +43,7 @@ class ForecastRepositoryImpl(
     }
     private suspend fun fetchCurrentWeather(){
         weatherNetworkDataSource.fetchCurrentWeather(
-            "Los Angeles",
+            "London",
             Locale.getDefault().language
         )
     }
