@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.riseenshine.internal.NoConnectivityException
+import com.example.riseenshine.internal.Exceptions
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -15,7 +15,7 @@ class ConnectivityInterceptorImpl(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isOnline())
-            throw NoConnectivityException()
+            throw Exceptions()
         return chain.proceed(chain.request())
     }
 

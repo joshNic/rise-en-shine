@@ -68,6 +68,12 @@ dependencies {
     // Annotation processor
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
+    implementation "com.google.android.gms:play-services-location:17.0.0"
+
+    //groupy
+//    implementation "com.xwray:groupie:2.1.0"
+//    implementation "com.xwray:groupie-kotlin-android-extensions:2.1.0"
+
     //Preferences
     implementation "androidx.preference:preference-ktx:$preference_version"
 
