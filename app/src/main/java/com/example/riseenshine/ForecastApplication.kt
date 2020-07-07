@@ -1,8 +1,11 @@
 package com.example.riseenshine
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import com.example.riseenshine.data.db.ForecastDatabase
 import com.example.riseenshine.data.network.*
+import com.example.riseenshine.data.provider.UnitProvider
+import com.example.riseenshine.data.provider.UnitProviderImpl
 import com.example.riseenshine.data.repository.ForecastRepository
 import com.example.riseenshine.data.repository.ForecastRepositoryImpl
 import com.example.riseenshine.ui.weather.current.CurrentWeatherViewModelFactory
@@ -24,11 +27,13 @@ class ForecastApplication:Application(),KodeinAware {
         bind() from singleton { WeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
         bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(),instance()) }
-        bind() from provider{ CurrentWeatherViewModelFactory(instance())}
+        bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
+        bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
     }
 
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
     }
 }
