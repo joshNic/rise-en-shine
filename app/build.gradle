@@ -14,6 +14,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,6 +24,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -71,8 +76,10 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:17.0.0"
 
     //groupy
-//    implementation "com.xwray:groupie:2.1.0"
-//    implementation "com.xwray:groupie-kotlin-android-extensions:2.1.0"
+    implementation "com.xwray:groupie:2.1.0"
+    implementation "com.xwray:groupie-kotlin-android-extensions:2.1.0"
+
+    implementation 'com.android.support:multidex:1.0.3'
 
     //Preferences
     implementation "androidx.preference:preference-ktx:$preference_version"
