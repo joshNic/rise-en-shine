@@ -1,6 +1,7 @@
 package com.example.riseenshine.data.network
 
 import com.example.riseenshine.data.network.response.CurrentWeatherResponse
+import com.example.riseenshine.data.network.response.FutureWeatherResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -19,6 +20,13 @@ interface WeatherApiService {
         @Query("q") location: String,
         @Query("lang") languageCode: String = "en"
     ): CurrentWeatherResponse
+
+    @GET("forecast.json")
+    suspend fun getFutureWeather(
+        @Query("q") location: String,
+        @Query("days") days: Int,
+        @Query("lang") languageCode: String = "en"
+    ): FutureWeatherResponse
 
 
 

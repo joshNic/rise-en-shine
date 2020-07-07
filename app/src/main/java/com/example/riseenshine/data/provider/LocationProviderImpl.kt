@@ -41,8 +41,7 @@ class LocationProviderImpl(
             } catch (e: LocationPermissionNotGrantedException) {
                 return "${getCustomLocationName()}"
             }
-        }
-        else
+        } else
             return "${getCustomLocationName()}"
     }
 
@@ -60,8 +59,11 @@ class LocationProviderImpl(
     }
 
     private fun hasCustomLocationChanged(lastWeatherLocation: WeatherLocation): Boolean {
-        val customLocationName = getCustomLocationName()
-        return customLocationName != lastWeatherLocation.name
+        if (!isUsingDeviceLocation()) {
+            val customLocationName = getCustomLocationName()
+            return customLocationName != lastWeatherLocation.name
+        }
+        return false
     }
 
     private fun isUsingDeviceLocation(): Boolean {
@@ -81,7 +83,9 @@ class LocationProviderImpl(
     }
 
     private fun hasLocationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(appContext,
-            Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(
+            appContext,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 }

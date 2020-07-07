@@ -1,4 +1,4 @@
-package com.example.riseenshine.data.db.unitlocalized
+package com.example.riseenshine.data.db.unitlocalized.current
 
 interface UnitSpecificCurrentWeatherEntry {
     val temperature: Double

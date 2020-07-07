@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.riseenshine.data.db.CurrentWeatherDao
 import com.example.riseenshine.data.db.WeatherLocationDao
 import com.example.riseenshine.data.db.entity.WeatherLocation
-import com.example.riseenshine.data.db.unitlocalized.UnitSpecificCurrentWeatherEntry
+import com.example.riseenshine.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 import com.example.riseenshine.data.network.WeatherNetworkDataSource
 import com.example.riseenshine.data.network.response.CurrentWeatherResponse
 import com.example.riseenshine.data.provider.LocationProvider
@@ -50,7 +50,7 @@ class ForecastRepositoryImpl(
     }
 
     private suspend fun initWeatherData(){
-        val lastWeatherLocation = weatherLocationDao.getLocation().value
+        val lastWeatherLocation = weatherLocationDao.getLocationNonLive()
         if (lastWeatherLocation==null ||locationProvider.hasLocationChanged(lastWeatherLocation)){
             fetchCurrentWeather()
             return
