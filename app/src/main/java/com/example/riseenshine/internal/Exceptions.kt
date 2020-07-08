@@ -5,3 +5,4 @@ import java.io.IOException
 class Exceptions:IOException() {
 }
 class LocationPermissionNotGrantedException: Exception()
+class DateNotFoundException: Exception()

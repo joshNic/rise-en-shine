@@ -1,7 +1,6 @@
 package com.example.riseenshine.ui.weather.future.list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.riseenshine.R
-import com.example.riseenshine.data.db.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
+import com.example.riseenshine.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.example.riseenshine.ui.base.ScopedFragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder

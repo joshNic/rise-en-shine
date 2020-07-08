@@ -6,7 +6,8 @@ import com.example.riseenshine.data.db.FutureWeatherDao
 import com.example.riseenshine.data.db.WeatherLocationDao
 import com.example.riseenshine.data.db.entity.WeatherLocation
 import com.example.riseenshine.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
-import com.example.riseenshine.data.db.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
+import com.example.riseenshine.data.db.unitlocalized.future.detail.UnitSpecificDetailFutureWeatherEntry
+import com.example.riseenshine.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.example.riseenshine.data.network.FORECAST_DAYS_COUNT
 import com.example.riseenshine.data.network.WeatherNetworkDataSource
 import com.example.riseenshine.data.network.response.CurrentWeatherResponse
@@ -66,6 +67,16 @@ class ForecastRepositoryImpl(
         }
     }
 
+    override suspend fun getFutureWeatherByDate(
+        date: LocalDate,
+        metric: Boolean
+    ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
+        return withContext(Dispatchers.IO) {
+            initWeatherData()
+            return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(date)
+            else futureWeatherDao.getDetailedWeatherByDateImperial(date)
+        }
+    }
     override suspend fun getWeatherLocation(): LiveData<WeatherLocation> {
         return withContext(Dispatchers.IO){
             return@withContext weatherLocationDao.getLocation()

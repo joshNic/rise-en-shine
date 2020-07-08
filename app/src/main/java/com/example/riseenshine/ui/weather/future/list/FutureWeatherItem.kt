@@ -1,8 +1,8 @@
 package com.example.riseenshine.ui.weather.future.list
 
 import com.example.riseenshine.R
-import com.example.riseenshine.data.db.unitlocalized.future.MetricSimpleFutureWeatherEntry
-import com.example.riseenshine.data.db.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
+import com.example.riseenshine.data.db.unitlocalized.future.list.MetricSimpleFutureWeatherEntry
+import com.example.riseenshine.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.example.riseenshine.internal.glide.GlideApp
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item

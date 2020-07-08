@@ -1,4 +1,4 @@
-package com.example.riseenshine.data.db.unitlocalized.future
+package com.example.riseenshine.data.db.unitlocalized.future.list
 
 import androidx.room.ColumnInfo
 import org.threeten.bp.LocalDate

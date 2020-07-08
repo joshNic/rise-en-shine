@@ -1,4 +1,4 @@
-package com.example.riseenshine.data.db.unitlocalized.future
+package com.example.riseenshine.data.db.unitlocalized.future.list
 
 import org.threeten.bp.LocalDate
 
